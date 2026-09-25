@@ -4,37 +4,46 @@ This example is for the Worldsemi WS2916A-RGBW high-grayscale addressable RGBW L
 
 ## Key Features
 
-- Operating voltage: 3.3V–5.5V
-- RGB current: up to 30mA
-- White-channel current: up to 60mA
-- Configurable white CCT: 2700K–7000K
-- Single-wire self-bypass protocol
-- 5-bit per-channel current gain
-- 16-bit grayscale data per RGBW channel
-- 96-bit total data per pixel
 - 5050 package
+- RGBW integrated addressable LED
+- 16-bit grayscale per channel
+- 65536 grayscale levels per channel
+- Up to 2 kHz refresh rate
+- Single-wire RZ protocol
+- Self-bypass function
+- Adjustable current gain
 - White-channel output greater than 15 lm
 
-## Pixel Data Format
+## Data Structure
 
-WS2916A-RGBW uses a 96-bit pixel data structure.
+Each refresh frame consists of:
 
-The protocol includes:
+1. 32-bit current-gain configuration data
+2. 64-bit GRBW grayscale data for each pixel
 
-- Per-channel current-gain configuration
-- Parity / control data
-- 16-bit Red data
-- 16-bit Green data
-- 16-bit Blue data
-- 16-bit White data
+Each pixel contains:
 
-Because this device uses a different data format from standard 24-bit WS2812B devices, standard WS2812B libraries should not be assumed to work without protocol support.
+- Green: 16 bits
+- Red: 16 bits
+- Blue: 16 bits
+- White: 16 bits
+
+Data is transmitted in GRBW order, MSB first.
+
+## Signal Timing
+
+According to the WS2916A-RGBW specification:
+
+- T0H: 220 ns to 380 ns
+- T1H: 520 ns to 1 us
+- Reset low time: > 280 us
+- Data cycle: >= 1.25 us
 
 ## Hardware
 
 - Arduino-compatible MCU or ESP32
 - Worldsemi WS2916A-RGBW
-- Appropriate LED power supply
+- 5V LED power supply
 - Common GND between MCU and LED power supply
 
 ## Wiring
@@ -43,35 +52,43 @@ Because this device uses a different data format from standard 24-bit WS2812B de
 |---|---|
 | Data GPIO | DIN |
 | GND | GND |
+| GND | BIN on first pixel |
+| 5V | VDD |
 
-Connect VDD according to the target application and WS2916A-RGBW specification.
+The first pixel's BIN pin should not be left floating. Connect it to GND.
+
+## 3.3V Logic
+
+The WS2916A-RGBW input high-level threshold is specified as 0.55 × VDD.
+
+With a 5V LED supply, this corresponds to approximately 2.75V, allowing a 3.3V MCU such as ESP32 to drive DIN directly.
+
+## Important Thermal Note
+
+Do not operate the White channel at maximum brightness simultaneously with RGB at maximum brightness.
+
+Refer to the latest WS2916A-RGBW datasheet for power and thermal limits.
 
 ## Software
 
-A protocol-specific example will be added here for:
+A protocol-specific example will be provided for:
 
-- 96-bit pixel transmission
-- RGBW 16-bit grayscale control
-- Per-channel current-gain settings
-- Basic RGBW color output
+- 32-bit current-gain transmission
+- 64-bit GRBW pixel transmission
+- 16-bit grayscale control
+- Basic RGBW output
 - White-channel brightness control
-
-## Notes
-
-Do not use a standard 24-bit WS2812B data routine for this device.
-
-Always refer to the latest WS2916A-RGBW datasheet and protocol specification.
 
 ## Links
 
-Worldsemi:  
+Worldsemi:
 https://www.world-semi.com
 
-YouTube:  
+YouTube:
 https://www.youtube.com/@WorldsemiLED
 
-Reddit:  
+Reddit:
 https://www.reddit.com/user/WorldsemiLED/
 
-LinkedIn:  
+LinkedIn:
 https://www.linkedin.com/in/yinhuaping
