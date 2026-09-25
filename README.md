@@ -1,49 +1,25 @@
-Worldsemi LED Examples
+## Examples
 
-Official examples and reference projects for Worldsemi addressable LEDs.
+### ESP32
 
-Worldsemi develops next-generation digital LED technology for engineers, makers, and product designers.
+- [WS2812B 3.3V Direct Drive](ESP32/WS2812B_3V3_Direct_Drive/)
+  - Direct 3.3V GPIO control from ESP32
+  - No external logic-level shifter
+  - FastLED example
 
-Key Technologies
+- [WS2916A-RGBW Basic Control](ESP32/WS2916A_RGBW_Basic_Control/)
+  - 32-bit current-gain header
+  - 64-bit GRBW pixel data
+  - 16-bit grayscale per channel
+  - ESP32 RMT transmission
 
-* Native 3.3V logic compatibility
-* Ultra-low standby current
-* Miniature addressable LEDs
-* RGBW solutions
-* High-refresh digital LEDs
-* ESP32, Arduino and FastLED applications
+### FastLED
 
-Examples
+- [Rainbow & Color Chase](FastLED/Rainbow_Color_Chase/)
+  - Rainbow animation
+  - Single-pixel color chase
+  - Worldsemi WS2812B example
 
-This repository will include:
+### Arduino
 
-* ESP32 examples
-* Arduino examples
-* FastLED examples
-* RGB / RGBW demos
-* Modular pixel board projects
-* Engineering test examples
-
-Resources
-
-Official website:
-https://www.world-semi.com
-
-YouTube:
-https://www.youtube.com/@WorldsemiLED
-
-Reddit:
-https://www.reddit.com/user/WorldsemiLED/
-
-LinkedIn:
-https://www.linkedin.com/in/yinhuaping
-
-About Worldsemi
-
-Worldsemi focuses on addressable LEDs and LED driver IC technology, with an emphasis on lower power consumption, lower operating voltage, smaller pixels, and new digital lighting applications.
-
-We welcome developers, makers, researchers, and hardware enthusiasts to experiment, contribute, and build with us.
-
-License
-
-Example code in this repository is released under the MIT License unless otherwise noted.
+More Arduino examples are coming soon.
